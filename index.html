@@ -25,7 +25,7 @@
         }
 
         body {
-            font-family: 'Garet', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Myriad Pro Semibold', 'Myriad Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             overflow-x: hidden;
@@ -43,9 +43,6 @@
             background: var(--white);
             padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
         nav {
@@ -453,9 +450,37 @@
 
         /* Phone Mockup */
         .phone-mockup-section {
-            background: linear-gradient(135deg, #FE5701 0%, #D378EF 100%);
-            padding: 80px 0;
+            padding: 120px 0;
+            margin-top: 80px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-mockup-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .phone-mockup-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .phone-mockup-section .container {
+            position: relative;
+            z-index: 2;
         }
 
         .phone-mockup-section h2 {
@@ -480,40 +505,34 @@
 
         .phone-frame {
             position: relative;
-            width: 340px;
-            height: 700px;
+            width: 380px;
+            height: 780px;
             background: #1e1e1e;
-            border-radius: 50px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-            padding: 15px;
+            border-radius: 55px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            padding: 12px;
             margin: 0 auto;
+            border: 3px solid #2c2c2e;
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
             background: #000;
-            border-radius: 38px;
+            border-radius: 47px;
             overflow: hidden;
             position: relative;
         }
 
         .phone-notch {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 30px;
-            background: #1e1e1e;
-            border-radius: 0 0 20px 20px;
-            z-index: 10;
+            display: none;
         }
 
         .phone-screen video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 47px;
         }
 
         /* Responsive */
@@ -569,19 +588,22 @@
             }
 
             .phone-frame {
-                width: 280px;
-                height: 580px;
-                border-radius: 40px;
-                padding: 12px;
+                width: 300px;
+                height: 620px;
+                border-radius: 45px;
+                padding: 10px;
             }
 
             .phone-screen {
-                border-radius: 30px;
+                border-radius: 38px;
+            }
+
+            .phone-screen video {
+                border-radius: 38px;
             }
 
             .phone-notch {
-                width: 120px;
-                height: 25px;
+                display: none;
             }
         }
     </style>
@@ -656,6 +678,7 @@
 
     <!-- Phone Demo Section -->
     <section id="demo" class="phone-mockup-section">
+        <img src="imgg.jpeg" alt="Background" class="phone-mockup-bg-video">
         <div class="container">
             <h2>See WASL AI in Action</h2>
             <p>Experience how easy it is to manage your contacts through Telegram</p>
@@ -664,8 +687,8 @@
                     <div class="phone-screen">
                         <div class="phone-notch"></div>
                         <video autoplay loop muted playsinline>
-                            <source src="demo.mov" type="video/quicktime">
-                            <source src="demo.mov" type="video/mp4">
+                            <source src="demov.mp4" type="video/quicktime">
+                            <source src="demov.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
