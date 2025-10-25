@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASL AI - Your Personal Contact Assistant</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=garet@400,500,600,700,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FE5701;
+            --primary-dark: #E54D00;
+            --secondary: #D378EF;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Garet', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--white);
+            color: var(--dark);
+            padding: 60px 0 0 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #FE5701 0%, #D378EF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+
+        .hero-gif {
+            max-width: 100%;
+            width: 1000px;
+            margin: 40px auto 0;
+            display: block;
+            border-radius: 20px 20px 0 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Section */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FE5701, #D378EF);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        /* Alternating Content */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .content-section:nth-child(even) {
+            direction: rtl;
+        }
+
+        .content-section:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .content-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .content-text p {
+            color: var(--gray);
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .content-image {
+            background: linear-gradient(135deg, #FE5701 0%, #D378EF 100%);
+            height: 300px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 48px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #FE5701 0%, #D378EF 100%);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured h3,
+        .pricing-card.featured .price,
+        .pricing-card.featured p {
+            color: var(--white);
+        }
+
+        .pricing-card.featured .feature-list li {
+            color: var(--white);
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+
+        .pricing-card.featured .price {
+            color: var(--white);
+        }
+
+        .price span {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .pricing-card p {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .pricing-card .cta-button {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card.featured .cta-button {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Background Sections */
+        .bg-light {
+            background: var(--light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section:nth-child(even) {
+                direction: ltr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">WASL AI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#capabilities">Capabilities</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <a href="#pricing" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Remember Everyone You Meet</h1>
+            <p>A conversational AI tool that remembers everyone you meet, and helps you act on relationships—whether personal or professional.</p>
+            <p class="subtitle">Chat naturally on Telegram—WASL AI does the rest.</p>
+            <a href="#pricing" class="cta-button">Start Free</a>
+        </div>
+    </section>
+
+    <!-- What is WASL AI -->
+    <section class="container">
+        <h2 class="section-title">What is WASL AI?</h2>
+        <p class="section-subtitle">WASL AI is your personal contact assistant that lives in Telegram as a Chatbot. Add contacts by chatting naturally, search semantically, and never forget a connection.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Semantic Search</h3>
+                <p>Ask questions naturally—WASL AI understands context</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Contact Recall</h3>
+                <p>Never forget who you met or where</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Easy Contact Entry</h3>
+                <p>Add contacts by chatting naturally—no forms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section id="capabilities" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Core Capabilities</h2>
+            <p class="section-subtitle">Powerful features wrapped in a simple chat interface</p>
+            
+            <div class="content-section">
+                <div class="content-text">
+                    <h3>Chat to Add Contacts</h3>
+                    <p>Just tell WASL AI: "I met Omar at Seamless Dubai, he's doing sales at Talabat." The AI extracts and structures everything automatically—name, company, role, context, and contact info.</p>
+                    <ul class="feature-list">
+                        <li>No manual data entry</li>
+                        <li>Automatic organization</li>
+                        <li>Context preserved</li>
+                    </ul>
+                </div>
+                <div class="content-image">💬</div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-text">
+                    <h3>Semantic Search That Understands You</h3>
+                    <p>Ask "Who do I know in fintech?" or "Who's working in Dubai?" WASL AI understands meaning, not just keywords. Find people by industry, location, relationship, or any context.</p>
+                    <ul class="feature-list">
+                        <li>Natural language queries</li>
+                        <li>Context-aware results</li>
+                        <li>Instant recall</li>
+                    </ul>
+                </div>
+                <div class="content-image">🎯</div>
+            </div>
+
+            <div class="features-grid" style="margin-top: 60px;">
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Smart Filters</h3>
+                    <p>Filter by company, role, location, or when you met—all through natural conversation</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Auto-Reminders</h3>
+                    <p>Set follow-up reminders and get AI-drafted messages when it's time to reconnect</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Contextual Notes</h3>
+                    <p>Add notes, tags, and relationship details—all in plain English, no forms required</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRM Section -->
+    <section id="features" class="container">
+        <h2 class="section-title">A Lightweight, Chat-Based AI CRM</h2>
+        <p class="section-subtitle">Track every client through Telegram—no bloated software, just smart conversations.</p>
+        
+        <div class="content-section">
+            <div class="content-text">
+                <h3>Team Collaboration</h3>
+                <p>Your entire team uses the same WASL AI bot in Telegram. See shared contacts, add notes, assign follow-ups—all in one chat.</p>
+            </div>
+            <div class="content-image">👥</div>
+        </div>
+
+        <div class="content-section">
+            <div class="content-text">
+                <h3>Smart Client Queries</h3>
+                <p>Query your client database naturally: "Which clients haven't replied in 10 days?" or "Show me all pending proposals."</p>
+            </div>
+            <div class="content-image">📊</div>
+        </div>
+
+        <div class="content-section">
+            <div class="content-text">
+                <h3>Automated Follow-Ups</h3>
+                <p>WASL AI suggests personalized follow-ups based on context. Edit and send with one tap, or let AI learn your style.</p>
+            </div>
+            <div class="content-image">✉️</div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle">Start free, upgrade as you grow</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Personal Free</h3>
+                    <div class="price">$0<span>/month</span></div>
+                    <p>Perfect for individuals managing personal contacts</p>
+                    <a href="#" class="cta-button cta-button-secondary">Get Started</a>
+                    <ul class="feature-list">
+                        <li>Up to 10 contacts</li>
+                        <li>Semantic search</li>
+                        <li>Basic reminders</li>
+                        <li>Telegram integration</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Personal Pro</h3>
+                    <div class="price">$9<span>/month</span></div>
+                    <p>For professionals with extensive networks</p>
+                    <a href="#" class="cta-button">Upgrade to Pro</a>
+                    <ul class="feature-list">
+                        <li>Unlimited contacts</li>
+                        <li>Advanced semantic search</li>
+                        <li>Smart reminders & follow-ups</li>
+                        <li>AI message drafting</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Companies Pro</h3>
+                    <div class="price">$49<span>/month</span></div>
+                    <p>For teams managing client relationships</p>
+                    <a href="#" class="cta-button cta-button-secondary">Contact Sales</a>
+                    <ul class="feature-list">
+                        <li>Everything in Pro</li>
+                        <li>Team collaboration</li>
+                        <li>Shared workspace</li>
+                        <li>Client pipeline tracking</li>
+                        <li>Analytics & insights</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>WASL AI</h4>
+                    <p>Your personal contact assistant that lives in Telegram.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#capabilities">Capabilities</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 WASL AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
