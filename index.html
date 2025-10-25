@@ -108,11 +108,26 @@
             color: var(--white);
         }
 
+        /* Hero GIF Section */
+        .hero-gif-section {
+            background: var(--white);
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .hero-gif-top {
+            width: 100%;
+            max-width: 100%;
+            display: block;
+            margin: 0;
+        }
+
         /* Hero Section */
         .hero {
             background: var(--white);
             color: var(--dark);
-            padding: 60px 0 0 0;
+            padding: 80px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -146,13 +161,33 @@
             margin-bottom: 40px;
         }
 
-        .hero-gif {
-            max-width: 100%;
-            width: 1000px;
-            margin: 40px auto 0;
-            display: block;
-            border-radius: 20px 20px 0 0;
-            box-shadow: var(--shadow-lg);
+        /* Story Section */
+        .story-section {
+            background: var(--light-gray);
+            padding: 80px 0;
+        }
+
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-content p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .story-highlight {
+            font-size: 22px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #FE5701 0%, #D378EF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 40px;
         }
 
         /* Section */
@@ -487,13 +522,26 @@
                 font-size: 18px;
             }
 
-            .hero-gif {
-                width: 100%;
-                border-radius: 10px 10px 0 0;
+            .hero {
+                padding: 60px 0;
             }
 
             .section-title {
                 font-size: 32px;
+            }
+
+            .story-section {
+                padding: 60px 0;
+            }
+
+            .story-content p {
+                font-size: 18px;
+                line-height: 1.7;
+            }
+
+            .story-highlight {
+                font-size: 20px;
+                margin-top: 30px;
             }
 
             .content-section {
@@ -544,6 +592,11 @@
         </nav>
     </header>
 
+    <!-- Hero GIF Section -->
+    <section class="hero-gif-section">
+        <img src="main.gif" alt="WASL AI Demo" class="hero-gif-top">
+    </section>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
@@ -551,7 +604,19 @@
             <p>A conversational AI tool that remembers everyone you meet, and helps you act on relationships—whether personal or professional.</p>
             <p class="subtitle">Chat naturally on Telegram—WASL AI does the rest.</p>
             <a href="#pricing" class="cta-button">Start Free</a>
-            <img src="main.gif" alt="WASL AI Demo" class="hero-gif">
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <p>We've all been there. You're at a networking event in Dubai—GITEX, a startup mixer, a coffee meeting at DIFC—and you meet someone incredible. The conversation flows, ideas spark, and you exchange numbers promising to follow up. But life gets busy. Days turn into weeks, and that connection fades into your contact list, buried among hundreds of names you can barely remember. Then months later, you think: "Wait, who do I know at Careem?" or "Didn't I meet someone working on fintech?"—but it's too late. The opportunity is gone.</p>
+                
+                <p>For startups and growing companies, this isn't just inconvenient—it's costly. A missed follow-up means a lost client. A forgotten connection means a partnership that never happened. Your next big investor, strategic partner, or key hire might already be in your phone, but without context, without reminders, without intelligence—they're just another forgotten name. In a city like Dubai where networking is currency and relationships drive business, staying organized isn't optional.</p>
+                
+                <p class="story-highlight">That's why we built WASL AI: an intelligent memory layer that ensures you never lose a meaningful connection again. We believe every relationship matters—and with AI, staying connected should be effortless, not exhausting.</p>
+            </div>
         </div>
     </section>
 
